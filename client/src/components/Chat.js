@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 import {Button, TextField} from "@material-ui/core";
+import {timeStamp} from "../util/timeStamp";
 
 const URL = 'ws://localhost:3030'
 
@@ -32,11 +33,11 @@ const Chat = () => {
     }, [ws.onmessage])
 
     useEffect(() => {
-        ws: new WebSocket(URL)
+        new WebSocket(URL)
     }, [ws.onclose])
 
     const enterApp = () => {
-        const loginMessage = {name: 'FossBot', message: `${name} has joined the chat!`}
+        const loginMessage = {name: 'FossBot', message: `${name} has joined the chat!`, time: timeStamp()}
         if (name !== '') {
             setNameEmpty(false)
             ws.send(JSON.stringify(loginMessage))
@@ -47,7 +48,7 @@ const Chat = () => {
 
     const submitMessage = (messageString) => {
         // on submitting the ChatInput form, send the message, add it to the list and reset the input
-        const message = {name: name, message: messageString}
+        const message = {name: name, message: messageString, time: timeStamp()}
         ws.send(JSON.stringify(message))
 
     }
@@ -58,7 +59,7 @@ const Chat = () => {
                 (nameEmpty) ?
                     <form onSubmit={handleSubmit}>
                         <TextField
-                            id="name"
+                            id="nameInput"
                             label="Your name.."
                             name={'name'}
                             value={name}
@@ -82,6 +83,7 @@ const Chat = () => {
                                 key={index}
                                 message={message.message}
                                 name={message.name}
+                                time={message.time}
                             />,
                         )}
                     </div>
