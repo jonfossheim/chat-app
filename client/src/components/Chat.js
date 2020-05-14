@@ -83,8 +83,9 @@ const Chat = () => {
                                 key={index}
                                 message={message.message}
                                 name={message.name}
-                                time={message.time}
-                            />,
+                                time={message.time}>
+                                {message.name === name ? <button>edit</button> : null}
+                            </ChatMessage>,
                         )}
                     </div>
             }
