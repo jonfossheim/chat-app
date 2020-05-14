@@ -1,9 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {TextField, Button} from "@material-ui/core";
 
 const ChatInput = () => {
     const [message, setMessage] = useState('')
     const [messageEmpty, setMessageEmpty] = useState(true)
+
+    useEffect(() => {
+        if (message !== '') {
+            setMessageEmpty(false)
+        } else {
+            setMessageEmpty(true)
+        }
+    }, [message])
 
     const handleSubmit = (e) => {
         e.preventDefault()
