@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {TextField, Button} from "@material-ui/core";
 
-const ChatInput = () => {
+const ChatInput = (props) => {
     const [message, setMessage] = useState('')
     const [messageEmpty, setMessageEmpty] = useState(true)
 
@@ -15,6 +15,7 @@ const ChatInput = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        props.onSubmitMessage(message)
         setMessage('')
 
     }

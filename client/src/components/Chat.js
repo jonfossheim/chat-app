@@ -31,6 +31,13 @@ const Chat = () => {
         ws: new WebSocket(URL)
     }, [ws.onclose])
 
+    const submitMessage = (messageString) => {
+        // on submitting the ChatInput form, send the message, add it to the list and reset the input
+        const message = {name: name, message: messageString}
+        ws.send(JSON.stringify(message))
+
+    }
+
     return (
         <div>
             <TextField
@@ -41,7 +48,10 @@ const Chat = () => {
                 onChange={e => setName(e.target.value)}
                 variant="outlined"
             />
-            <ChatInput/>
+            <ChatInput
+                ws={ws}
+                onSubmitMessage={messageString => submitMessage(messageString)}
+            />
             {messages.map((message, index) =>
                 <ChatMessage
                     key={index}
