@@ -6,8 +6,8 @@ import ChatMessage from './ChatMessage'
 
 const URL = 'ws://localhost:3030'
 
-const Chat = () => {
-    const [name, setName] = useState('')
+const Chat = (props) => {
+    const [name, setName] = useState(props.displayName)
     const [messages, setMessages] = useState([])
 
     const ws = new WebSocket(URL)
