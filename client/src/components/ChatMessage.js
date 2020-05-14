@@ -1,11 +1,6 @@
 import React from "react";
 
-const ChatMessage = () => {
-    return (
-        <>
-
-        </>
-    )
-}
-
-export default ChatMessage
+export default ({name, message}) =>
+    <p>
+        <strong>{name}:</strong> <em>{message}</em>
+    </p>
