@@ -5,20 +5,36 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import WelcomeScreen from "./pages/WelcomeScreen";
 import Room from "./pages/Room";
 
+import {createStore, compose, applyMiddleware} from "redux";
+import {devToolsEnhancer} from "redux-devtools-extension";
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+
+import initialReducer from './store/reducers/initialReducer'
+
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+export const store = createStore(
+    initialReducer,
+    compose(
+        applyMiddleware(thunk),
+        devToolsEnhancer()
+    )
+)
 
 ReactDOM.render(
-    <Router>
-        <App>
-            <Switch>
-                <Route path='/' exact component={WelcomeScreen}/>
-                <Route path='/room' component={Room}/>
-            </Switch>
-        </App>
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <App>
+                <Switch>
+                    <Route path='/' exact component={WelcomeScreen}/>
+                    <Route path='/room' component={Room}/>
+                </Switch>
+            </App>
+        </Router>
+    </Provider>,
 
     document.getElementById('root'));
 
