@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
-import {useSelector} from "react-redux";
-import WelcomeScreen from "../pages/WelcomeScreen";
 import {Button, TextField} from "@material-ui/core";
 
 const URL = 'ws://localhost:3030'
@@ -13,6 +11,10 @@ const Chat = () => {
     const [messages, setMessages] = useState([])
 
     const ws = new WebSocket(URL)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
 
     const addMessage = (message) => {
         setMessages(state => [...state, message])
@@ -54,7 +56,7 @@ const Chat = () => {
         <div>
             {
                 (nameEmpty) ?
-                    <div>
+                    <form onSubmit={handleSubmit}>
                         <TextField
                             id="name"
                             label="Your name.."
@@ -64,11 +66,12 @@ const Chat = () => {
                             variant="outlined"
                         />
                         <Button
+                            type={'submit'}
                             variant="contained"
                             onClick={enterApp}
                             color="primary"
                         >Go to Room</Button>
-                    </div> :
+                    </form> :
                     <div>
                         <ChatInput
                             ws={ws}
