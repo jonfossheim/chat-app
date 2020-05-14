@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-import WelcomeScreen from "./components/WelcomeScreen";
+import WelcomeScreen from "./pages/WelcomeScreen";
+import Room from "./pages/Room";
 
 import './index.css';
 import App from './App';
@@ -14,6 +15,7 @@ ReactDOM.render(
         <App>
             <Switch>
                 <Route path='/' exact component={WelcomeScreen}/>
+                <Route path='/room' component={Room}/>
             </Switch>
         </App>
     </Router>,
