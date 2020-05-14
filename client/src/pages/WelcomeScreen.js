@@ -1,18 +1,26 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {TextField, Button} from "@material-ui/core";
+import {useDispatch} from "react-redux";
+import {
+    setDisplayName
+} from "../store/actions/displayNameAction";
 
 const WelcomeScreen = () => {
-    const [displayName, setDisplayName] = useState('')
+    const [tempName, setTempName] = useState('')
     const [displayNameEmpty, setDisplayNameEmpty] = useState(true)
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        if(displayName !== ''){
+        if(tempName !== ''){
             setDisplayNameEmpty(false)
         }else {
             setDisplayNameEmpty(true)
         }
-    },[displayName])
+        dispatch(setDisplayName(tempName))
+    },[tempName, dispatch])
+
     return (
         <div>
             <h1>Welcome to FossChat!</h1>
@@ -20,8 +28,8 @@ const WelcomeScreen = () => {
                 id="name"
                 label="Your name.."
                 name={'name'}
-                value={displayName}
-                onChange={e => setDisplayName(e.target.value)}
+                value={tempName}
+                onChange={e => setTempName(e.target.value)}
                 variant="outlined"
             />
             <Link to={'/room'}>

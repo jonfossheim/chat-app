@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-import WelcomeScreen from "./pages/WelcomeScreen";
-import Room from "./pages/Room";
+import Chat from "./components/Chat";
 
 import {createStore, compose, applyMiddleware} from "redux";
 import {devToolsEnhancer} from "redux-devtools-extension";
@@ -29,8 +28,7 @@ ReactDOM.render(
         <Router>
             <App>
                 <Switch>
-                    <Route path='/' exact component={WelcomeScreen}/>
-                    <Route path='/room' component={Room}/>
+                    <Route path='/' exact component={Chat}/>
                 </Switch>
             </App>
         </Router>
