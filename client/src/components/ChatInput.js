@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {TextField, Button} from "@material-ui/core";
+import {Flex} from "./Flex";
 
 const ChatInput = (props) => {
     const [message, setMessage] = useState('')
@@ -27,22 +28,25 @@ const ChatInput = (props) => {
 
     return(
         <form onSubmit={handleSubmit}>
-            <TextField
-                id="message"
-                label="Your message.."
-                name={'message'}
-                value={message}
-                onChange={handleChange}
-                variant="outlined"
-            />
-            <Button
-                type={'submit'}
-                variant="contained"
-                disabled={messageEmpty}
-                color="primary"
-            >
-                Send
-            </Button>
+            <Flex style={{marginTop: '12px'}}>
+                <TextField
+                    id="message"
+                    label="Your message.."
+                    name={'message'}
+                    value={message}
+                    onChange={handleChange}
+                    variant="outlined"
+                    style={{width: '300px'}}
+                />
+                <Button
+                    type={'submit'}
+                    variant="contained"
+                    disabled={messageEmpty}
+                    color="primary"
+                >
+                    Send
+                </Button>
+            </Flex>
         </form>
     )
 }

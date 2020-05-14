@@ -3,6 +3,7 @@ import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 import {Button, TextField} from "@material-ui/core";
 import {timeStamp} from "../util/timeStamp";
+import {Flex} from "./Flex";
 
 const URL = 'ws://localhost:3030'
 
@@ -54,41 +55,51 @@ const Chat = () => {
     }
 
     return (
-        <div>
+        <Flex
+            flexDirection={'column'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            style={{height: '100vh', width: '100%'}}
+        >
             {
                 (nameEmpty) ?
                     <form onSubmit={handleSubmit}>
-                        <TextField
-                            id="nameInput"
-                            label="Your name.."
-                            name={'name'}
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                            variant="outlined"
-                        />
-                        <Button
-                            type={'submit'}
-                            variant="contained"
-                            onClick={enterApp}
-                            color="primary"
-                        >Go to Room</Button>
+                        <Flex flexDirection={'column'}>
+                            <TextField
+                                id="nameInput"
+                                label="Your name.."
+                                name={'name'}
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                                variant="outlined"
+                            />
+                            <Button
+                                style={{marginTop: '7px'}}
+                                type={'submit'}
+                                variant="contained"
+                                onClick={enterApp}
+                                color="primary"
+                            >Go to Room</Button>
+                        </Flex>
                     </form> :
-                    <div>
+                    <Flex flexDirection={'column'}>
+                        <Flex flexDirection={'column'} style={{flexGrow: '1', height: '90vh',overflow: 'auto'}}>
+                            {messages.map((message, index) =>
+                                <ChatMessage
+                                    key={index}
+                                    message={message.message}
+                                    name={message.name}
+                                    time={message.time}>
+                                </ChatMessage>,
+                            )}
+                        </Flex>
                         <ChatInput
                             ws={ws}
                             onSubmitMessage={messageString => submitMessage(messageString)}
                         />
-                        {messages.map((message, index) =>
-                            <ChatMessage
-                                key={index}
-                                message={message.message}
-                                name={message.name}
-                                time={message.time}>
-                            </ChatMessage>,
-                        )}
-                    </div>
+                    </Flex>
             }
-        </div>
+        </Flex>
     )
 }
 
